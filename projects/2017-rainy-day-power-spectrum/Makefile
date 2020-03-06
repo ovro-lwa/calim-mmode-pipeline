@@ -26,13 +26,13 @@ LAUNCH=$(JULIA) -- $(BIN)/launch.jl
 define launch
 	$(LAUNCH) $(filter-out .pipeline/%,$^)
 	touch $@
-	mail -s "[Pipeline] Completed Job" michael.w.eastwood@gmail.com <<< "$@"
+	mail -s "[Pipeline] Completed Job" philippe.j.berger@gmail.com <<< "$@"
 endef
 
 define launch-remote
 	$(LAUNCH) --remote-workers $(1) -- $(filter-out .pipeline/%,$^)
 	touch $@
-	mail -s "[Pipeline] Completed Job" michael.w.eastwood@gmail.com <<< "$@"
+	mail -s "[Pipeline] Completed Job" philippe.j.berger@gmail.com <<< "$@"
 endef
 
 # Some of these targets require significant resources on a machine and so we cannot reliably run
@@ -168,6 +168,9 @@ gain-error-tests: \
 .PHONY: sefd
 sefd: .pipeline/200-measure-system-equivalent-flux-density
 
+.PHONY: dirty-map-test
+dirty-map-test: .pipeline/031-dirty-map-calibrated-all
+
 #.PHONY: signal-injection
 #signal-injection: .pipeline/123-injected-quadratic-estimator
 
@@ -211,7 +214,7 @@ sefd: .pipeline/200-measure-system-equivalent-flux-density
 
 .pipeline/002-flagged-calibrated-data: \
 		$(LIB)/002-flag.jl project.yml 002-flag-calibrated.yml \
-		.pipeline/002-calibrated-data \
+		.pipeline/003-calibrated-data \
 		.pipeline/001-calibrated-transposed-data
 	$(launch)
 
@@ -222,7 +225,7 @@ sefd: .pipeline/200-measure-system-equivalent-flux-density
 
 .pipeline/011-subrfi: \
 		$(LIB)/011-subrfi.jl project.yml 011-subrfi.yml \
-		.pipeline/001-flagged-calibrated-data \
+		.pipeline/002-flagged-calibrated-data \
 		.pipeline/010-fitrfi
 	$(call launch-remote,6)
 
