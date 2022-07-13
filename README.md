@@ -22,12 +22,12 @@ make
 
 ## Essential Packages
 
-| Name    | Documentation                                |
-|---------|----------------------------------------------|
-| TTCal   | http://mweastwood.info/TTCal.jl/             |
-| BPJSpec | http://mweastwood.info/BPJSpec.jl/latest/    |
-| DADA2MS | https://github.com/sabourke/dada2ms          |
-| WSClean | https://sourceforge.net/p/wsclean/wiki/Home/ |
+| Name    | Documentation                                | Downlaod                               |
+|---------|----------------------------------------------|----------------------------------------|
+| TTCal   | http://mweastwood.info/TTCal.jl/             | https://github.com/ovro-lwa/TTCal.jl   |
+| BPJSpec | http://mweastwood.info/BPJSpec.jl/latest/    | https://github.com/ovro-lwa/BPJSpec.jl |
+| DADA2MS | https://github.com/sabourke/dada2ms          | https://github.com/ovro-lwa/dada2ms    |
+| WSClean | https://sourceforge.net/p/wsclean/wiki/Home/ | https://github.com/ovro-lwa/wsclean    |
 
 ## Notes
 
