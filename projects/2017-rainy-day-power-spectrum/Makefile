@@ -20,7 +20,7 @@ power-spectra: \
 
 BIN=../../bin
 LIB=../../lib
-JULIA=julia-0.6 --color=yes -O3
+JULIA=julia +0.7 --color=yes -O3
 LAUNCH=$(JULIA) -- $(BIN)/launch.jl
 
 define launch
