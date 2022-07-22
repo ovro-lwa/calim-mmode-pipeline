@@ -19,13 +19,13 @@ function load(file)
 end
 
 function workspace(metadata::ProjectMetadata)
-    path = joinpath("/lustre/xhall/mmode-analysis-workspace", metadata.name)
+    path = joinpath("/lustre/mweastwood/mmode-analysis-workspace", metadata.name)
     isdir(path) || mkpath(path)
     path
 end
 
 function temp()
-    path = "/dev/shm/xhall"
+    path = "/dev/shm/mweastwood"
     isdir(path) || mkpath(path)
     path
 end
