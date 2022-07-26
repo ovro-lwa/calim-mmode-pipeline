@@ -1,8 +1,11 @@
 [deps]
 ArgParse = "c7e460c6-2fb9-53a9-8c5b-16f535851c63"
+BPJSpec = "c2f8ae53-54de-5277-a835-27bc461b6c12"
+CasaCore = "f971ce14-3f7e-543c-a8de-37d93de32579"
 Dierckx = "39dd38d3-220a-591b-8e3c-4c3a8c710a94"
 DocOpt = "968ba79b-81e4-546f-ab3a-2eecfa62a9db"
 JLD2 = "033835bb-8acc-5ee8-8aae-3f567f8a3819"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
+TTCal = "48f8b5cb-992a-5e5c-a443-c4363f5645c9"
 YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
