@@ -28,6 +28,7 @@ make
 | BPJSpec | http://mweastwood.info/BPJSpec.jl/latest/    | https://github.com/ovro-lwa/BPJSpec.jl |
 | DADA2MS | https://github.com/sabourke/dada2ms          | https://github.com/ovro-lwa/dada2ms    |
 | WSClean | https://sourceforge.net/p/wsclean/wiki/Home/ | https://github.com/ovro-lwa/wsclean    |
+| LibHealPix | http://mweastwood.info/LibHealpix.jl/stable/ | https://github.com/Hallflower20/LibHealpix.jl    |
 
 ## Notes
 
