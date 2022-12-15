@@ -74,7 +74,7 @@ end
 function calibrate(project, wsclean, config)
     path = Project.workspace(project)
     calibration, bandpass_coeff = solve_for_the_calibration(project, config)
-    create_test_image(project, wsclean, config, calibration)
+    #create_test_image(project, wsclean, config, calibration)
     if config.output_calibration != ""
         Project.save(project, config.output_calibration, "calibration", calibration)
     end

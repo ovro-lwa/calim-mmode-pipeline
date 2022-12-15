@@ -39,7 +39,7 @@ number(config::Config) = length(first(values(config.files)))
 
 function run(config::Config, dada::String)
     ms = joinpath(Project.temp(), randstring(4)*"-"dotdada2dotms(basename(dada)))
-    Base.run(`dada2ms-mwe --utmzone $(config.utmzone) --antfile $(config.antfile) $dada $ms`)
+    Base.run(`dada2ms --utmzone $(config.utmzone) --antfile $(config.antfile) $dada $ms`)
     if config.polswap != ""
         cmd = joinpath(Project.bin(), config.polswap)
         Base.run(`$(joinpath(Project.bin(), "swapped-polarization-fixes", config.polswap)) $ms`)

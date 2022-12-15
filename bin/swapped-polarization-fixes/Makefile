@@ -1,9 +1,9 @@
 #CASACORE_INC_DIR := /opt/astro/casacore-2.0.3/include/casacore
 #CASACORE_LIB_DIR := /opt/astro/casacore-2.0.3/lib
-CASACORE_INC_DIR := /opt/astro/casacore-1.7.0/include/casacore
-CASACORE_LIB_DIR := /opt/astro/casacore-1.7.0/lib
+CASACORE_INC_DIR := /opt/include/casacore
+CASACORE_LIB_DIR := /opt/lib
 
-CXX = /opt/astro/gcc-4.8.5/bin/g++
+CXX = g++
 
 all: swap-polarizations-100hr swap-polarizations-rainy swap-polarizations-2018-03
 

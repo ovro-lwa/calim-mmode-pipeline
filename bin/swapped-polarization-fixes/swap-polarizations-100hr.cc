@@ -14,7 +14,7 @@
 #include <ms/MeasurementSets.h>
 
 using namespace std;
-using namespace casa;
+using namespace casacore;
 
 void odd_odd(Array<Complex>& data, int baseline) {
     IPosition shape = data.shape();

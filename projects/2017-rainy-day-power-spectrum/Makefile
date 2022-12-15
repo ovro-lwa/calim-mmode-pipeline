@@ -20,19 +20,17 @@ power-spectra: \
 
 BIN=../../bin
 LIB=../../lib
-JULIA=julia-0.6 --color=yes -O3
+JULIA=CPLUS_INCLUDE_PATH=/opt/include LIBRARY_PATH=/opt/lib /home/xhall/software/julia-0.6/bin/julia --color=yes -O3 --check-bounds=yes
 LAUNCH=$(JULIA) -- $(BIN)/launch.jl
 
 define launch
 	$(LAUNCH) $(filter-out .pipeline/%,$^)
 	touch $@
-	mail -s "[Pipeline] Completed Job" xhall@caltech.edu <<< "$@"
 endef
 
 define launch-remote
-	$(LAUNCH) --remote-workers $(1) -- $(filter-out .pipeline/%,$^)
+	$(LAUNCH) $(filter-out .pipeline/%,$^)
 	touch $@
-	mail -s "[Pipeline] Completed Job" xhall@caltech.edu <<< "$@"
 endef
 
 # Some of these targets require significant resources on a machine and so we cannot reliably run

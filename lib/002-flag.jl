@@ -81,38 +81,44 @@ function flag(project, config)
     path     = Project.workspace(project)
     metadata = Project.load(project, config.metadata, "metadata")
 
+    
     flags = Flags(metadata)
 
-    println("Applying a-priori flags")
-    a_priori_flags!(flags, config, metadata)
-    Project.save(project, config.output_flags*"-apriori", "flags", flags)
+    try
+        flags = Project.load(project, config.output_flags, "flags")
+    catch
+        println("Applying a-priori flags")
+        a_priori_flags!(flags, config, metadata)
+        Project.save(project, config.output_flags*"-apriori", "flags", flags)
 
-    if config.flag_autocorrelations
-        println("Flagging auto-correlations")
-        flag_autos!(flags, config, metadata)
+        if config.flag_autocorrelations
+            println("Flagging auto-correlations")
+            flag_autos!(flags, config, metadata)
+        end
+
+        use_transposed_visibilities = (config.smooth_sawtooth
+                                    || config.visibility_amplitude_threshold > 0
+                                    || config.channel_baseline_constant_offset_threshold > 0)
+        if use_transposed_visibilities
+            println("Working feverishly on the transposed visibilities")
+            transposed_visibilities = BPJSpec.load(joinpath(path, config.input_transposed))
+            process_transposed_visibilities!(flags, transposed_visibilities, metadata, config)
+        end
+
+        #use_regular_visibilities = false
+        #if use_regular_visibilities
+        #    visibilities = BPJSpec.load(joinpath(path, config.input))
+        #    process_regular_visibilities!(flags, visibilities, metadata, config)
+        #end
+
+        #println("Widening flags")
+        #Project.save(project, config.output_flags*"-unwidened", "flags", flags)
+        #@time widen!(flags, config)
+
+        println("Saving the new flags")
+        Project.save(project, config.output_flags, "flags", flags)
+        flags = Project.load(project, config.output_flags, "flags")
     end
-
-    use_transposed_visibilities = (config.smooth_sawtooth
-                                   || config.visibility_amplitude_threshold > 0
-                                   || config.channel_baseline_constant_offset_threshold > 0)
-    if use_transposed_visibilities
-        println("Working feverishly on the transposed visibilities")
-        transposed_visibilities = BPJSpec.load(joinpath(path, config.input_transposed))
-        process_transposed_visibilities!(flags, transposed_visibilities, metadata, config)
-    end
-
-    #use_regular_visibilities = false
-    #if use_regular_visibilities
-    #    visibilities = BPJSpec.load(joinpath(path, config.input))
-    #    process_regular_visibilities!(flags, visibilities, metadata, config)
-    #end
-
-    #println("Widening flags")
-    #Project.save(project, config.output_flags*"-unwidened", "flags", flags)
-    #@time widen!(flags, config)
-
-    println("Saving the new flags")
-    Project.save(project, config.output_flags, "flags", flags)
 
     if config.output != ""
         println("Applying the new flags")
@@ -122,6 +128,8 @@ function flag(project, config)
         Project.set_stripe_count(project, config.output, 1)
         write_output(project, flags, input, output, metadata)
     end
+    println("Done Applying New Flags")
+    flags = Project.load(project, config.output_flags, "flags")
     flags
 end
 
