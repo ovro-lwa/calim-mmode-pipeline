@@ -7,7 +7,7 @@ You cannot use Juliaup for version before 0.7 and 0.7 breaks some of the custom 
 
 # Environment Building
 
-Before the 0.7 release there is not the fancy new package and environment builder. This means that you will have to manually build said environment.
+Before the 0.7 release there is not the fancy new package and environment builder. This means that you will have to manually build said environment by just adding the packages.
 
 The base packages required by this program are:
 
@@ -23,7 +23,7 @@ Pkg.add("YAML")
 
 ## Custom Packages
 
-The custom ones that were build by Michael are:
+The custom ones that were built by Michael are:
 
 ```
 Pkg.clone("https://github.com/Hallflower20/CasaCore.jl")
