@@ -32,6 +32,8 @@ Pkg.clone("https://github.com/ovro-lwa/TTCal.jl")
 Pkg.clone("https://github.com/ovro-lwa/BPJSpec.jl")
 ```
 
+After cloning each of these packages make sure you build and test them to make sure they are working. LibHealpix will have one broken test this is ok.
+
 ## Casacore
 In order to get CasaCore.jl working you will need to Casacore add it to the C and C++ include path and library path. On Calim these paths are:
 
