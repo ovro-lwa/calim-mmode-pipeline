@@ -50,13 +50,19 @@ function fitrfi(project, wsclean, config)
     # Image each of the removed components
     for (idx, coherency) in enumerate(coherencies)
         TTCal.write(ms, coherency, column="CORRECTED_DATA")
-        WSClean.run(wsclean, ms, joinpath(path, config.output_measurement_set*"-component-$idx"))
+        try
+            WSClean.run(wsclean, ms, joinpath(path, config.output_measurement_set*"-component-$idx"))
+        catch
+        end
         Tables.open(ms, write=true)
     end
 
     # Image the residuals
     TTCal.write(ms, residuals, column="CORRECTED_DATA")
-    WSClean.run(wsclean, ms, joinpath(path, config.output_measurement_set*"-residuals"))
+    try
+        WSClean.run(wsclean, ms, joinpath(path, config.output_measurement_set*"-residuals"))
+    catch
+    end
 
     Project.save(project, config.output_coherencies, "coherencies", coherencies)
     Tables.close(ms)

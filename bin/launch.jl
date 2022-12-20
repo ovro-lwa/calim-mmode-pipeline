@@ -56,13 +56,15 @@ function main(args)
     end
 
     if args["remote-workers"] !== nothing
-        info("Launching remote workers")
-        number = args["remote-workers"]
-        for astm = 4:13
-            astm in args["exclude"] && continue
-            time = time_worker_spawn(astm, number, topology)
-            println(" ", rpad(name(astm)*" ", 7, "─"), lpad(@sprintf(" %.1f s", time), 8, "─"))
-        end
+        info("Launching local workers")
+        addprocs(args["remote-workers"], topology=topology)
+        ##info("Launching remote workers")
+        ##number = args["remote-workers"]
+        ##for astm = 4:13
+        ##    astm in args["exclude"] && continue
+        ##    time = time_worker_spawn(astm, number, topology)
+        ##    println(" ", rpad(name(astm)*" ", 7, "─"), lpad(@sprintf(" %.1f s", time), 8, "─"))
+        ##end
     end
 
     if args["local-workers"] !== nothing || args["remote-workers"] !== nothing

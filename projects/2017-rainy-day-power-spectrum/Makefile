@@ -20,7 +20,7 @@ power-spectra: \
 
 BIN=../../bin
 LIB=../../lib
-JULIA=CPLUS_INCLUDE_PATH=/opt/include LIBRARY_PATH=/opt/lib /home/xhall/software/julia-0.6/bin/julia --color=yes -O3 --check-bounds=yes
+JULIA=CPLUS_INCLUDE_PATH=/opt/include LIBRARY_PATH=/opt/lib /home/xhall/software/julia-0.6/bin/julia --color=yes -O3
 LAUNCH=$(JULIA) -- $(BIN)/launch.jl
 
 define launch
@@ -29,7 +29,7 @@ define launch
 endef
 
 define launch-remote
-	$(LAUNCH) $(filter-out .pipeline/%,$^)
+	$(LAUNCH) --remote-workers $(1) -- $(filter-out .pipeline/%,$^)
 	touch $@
 endef
 
