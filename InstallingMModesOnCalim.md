@@ -102,7 +102,7 @@ https://github.com/ovro-lwa/calim-mmode-pipeline/blob/update/projects/2017-rainy
 
 ## Working Directories
 
-You will need to over a sizeable workspace (~1 TB) for the code to output everything. Place that directory here.
+You will need to over a sizeable workspace (~14 TB) for the code to output everything. Place that directory here.
 
 https://github.com/ovro-lwa/calim-mmode-pipeline/blob/update/lib/Project.jl#L22
 
