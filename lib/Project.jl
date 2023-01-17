@@ -19,13 +19,13 @@ function load(file)
 end
 
 function workspace(metadata::ProjectMetadata)
-    path = joinpath("/data09/xhall_mmode_analysis/workspace/17", metadata.name)
+    path = joinpath("/data09/xhall_mmode_analysis/workspace/14", metadata.name)
     isdir(path) || mkpath(path)
     path
 end
 
 function temp()
-    path = "/data09/xhall_mmode_analysis/temp"
+    path = "/data09/xhall_mmode_analysis/temp/14"
     isdir(path) || mkpath(path)
     path
 end

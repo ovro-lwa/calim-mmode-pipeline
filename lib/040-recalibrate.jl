@@ -157,8 +157,14 @@ end
 function image(project, dataset, name)
     path = Project.workspace(project)
     ms = CreateMeasurementSet.create(dataset, joinpath(path, name*".ms"))
-    WSClean.run(WSClean.Config("natural", 0, 8), ms, joinpath(path, name*"-natural"))
-    WSClean.run(WSClean.Config("uniform", 0, 8), ms, joinpath(path, name*"-uniform"))
+    try
+        WSClean.run(WSClean.Config("natural", 0, 8), ms, joinpath(path, name*"-natural"))
+    catch
+    end
+    try
+        WSClean.run(WSClean.Config("uniform", 0, 8), ms, joinpath(path, name*"-uniform"))
+    catch
+    end
 end
 
 end
