@@ -67,7 +67,7 @@ https://github.com/Hallflower20/LibHealpix.jl/blob/master/dependencies-v0.2.3-0.
 If being used on a new machine you will have to recompile the code here:
 https://github.com/ovro-lwa/calim-mmode-pipeline/tree/update/bin/swapped-polarization-fixes
 
-You will need to change the directories and correct the compiler. When you are done you can run a standard make all and that will compile.
+You will need to change the directories and correct the compiler. When you are done you can run a make clean followed by a make all and that will compile.
 
 # dada2ms
 
@@ -75,7 +75,7 @@ There exists a dada2ms converter in this pipeline. You'll have to download and c
 
 https://github.com/ovro-lwa/dada2ms/tree/update_to_new_casa
 
-Once you download and compile it you will need to add it to your path variables.
+Once you download and compile it you will need to add it to your path variables. The compile command is located in the readme in the dada2ms repo.
 
 ```
 export PATH="/home/xhall/mmode_old/dada2ms/:$PATH"
