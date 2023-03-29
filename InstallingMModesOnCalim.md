@@ -120,3 +120,31 @@ https://github.com/ovro-lwa/calim-mmode-pipeline/blob/update/projects/2017-rainy
 
 There still exists are ReadOnlyMemoryError that sometimes pops up while trying to use the flags. I still can't figure out what exactly causes this or how to really fix it. The currently solution is simply to run the code twice. I put in a try: except:. This basically means if the flags don't already exist in the working directory it will produce them. Then it will probably crash. Then re-run the program and instead of making the flags again it will just read them and this time for some reason not crash. I will work on a better method but this is the process in the mean time.
 
+## IJulia
+
+https://datatofish.com/add-julia-to-jupyter/
+
+We will attempt to now install IJulia onto the system this will make debugging easier and less painful. However, the installation is painful so bear with me.
+
+We will first install Jupyter through a conda env.
+
+Next, activate that environment and run this in Julia:
+```
+Pkg.add("IJulia")
+```
+
+You will run into a build error that should say the jupyter version is not known. You will want to replace this function in the build file.
+
+```
+function prog_version(prog)
+    println(readstring(`$prog --version`))
+    try
+	return v"5.0.0"
+ #      return convert(VersionNumber, chomp(readstring(`$prog --version`)))
+    catch
+       return v"0.0"
+    end
+end
+```
+
+You should then finally be able to see a kernal for Julia 0.6.4!
