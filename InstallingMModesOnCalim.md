@@ -67,7 +67,7 @@ https://github.com/Hallflower20/LibHealpix.jl/blob/master/dependencies-v0.2.3-0.
 If being used on a new machine you will have to recompile the code here:
 https://github.com/ovro-lwa/calim-mmode-pipeline/tree/update/bin/swapped-polarization-fixes
 
-You will need to change the directories and correct the compiler. When you are done you can run a standard make all and that will compile.
+You will need to change the directories and correct the compiler. When you are done you can run a make clean followed by a make all and that will compile.
 
 # dada2ms
 
@@ -75,7 +75,7 @@ There exists a dada2ms converter in this pipeline. You'll have to download and c
 
 https://github.com/ovro-lwa/dada2ms/tree/update_to_new_casa
 
-Once you download and compile it you will need to add it to your path variables.
+Once you download and compile it you will need to add it to your path variables. The compile command is located in the readme in the dada2ms repo.
 
 ```
 export PATH="/home/xhall/mmode_old/dada2ms/:$PATH"
@@ -120,3 +120,31 @@ https://github.com/ovro-lwa/calim-mmode-pipeline/blob/update/projects/2017-rainy
 
 There still exists are ReadOnlyMemoryError that sometimes pops up while trying to use the flags. I still can't figure out what exactly causes this or how to really fix it. The currently solution is simply to run the code twice. I put in a try: except:. This basically means if the flags don't already exist in the working directory it will produce them. Then it will probably crash. Then re-run the program and instead of making the flags again it will just read them and this time for some reason not crash. I will work on a better method but this is the process in the mean time.
 
+## IJulia
+
+https://datatofish.com/add-julia-to-jupyter/
+
+We will attempt to now install IJulia onto the system this will make debugging easier and less painful. However, the installation is painful so bear with me.
+
+We will first install Jupyter through a conda env.
+
+Next, activate that environment and run this in Julia:
+```
+Pkg.add("IJulia")
+```
+
+You will run into a build error that should say the jupyter version is not known. You will want to replace this function in the build file.
+
+```
+function prog_version(prog)
+    println(readstring(`$prog --version`))
+    try
+	return v"5.0.0"
+ #      return convert(VersionNumber, chomp(readstring(`$prog --version`)))
+    catch
+       return v"0.0"
+    end
+end
+```
+
+You should then finally be able to see a kernal for Julia 0.6.4!
