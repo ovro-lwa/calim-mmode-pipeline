@@ -45,7 +45,7 @@ function load(file, dada2ms)
     else
         times = collect(1:DADA2MS.number(dada2ms))
     end
-    keep  = get(dict, "pol", [true, false, false, true])
+    keep  = get(dict, "pol", [true, false, false, true]) #xx, xy? ,yx? , yy
     accumulate = get(dict, "accumulate", false)
     Config(dict["output"], dict["output_metadata"], subbands, times, keep, accumulate)
 end
