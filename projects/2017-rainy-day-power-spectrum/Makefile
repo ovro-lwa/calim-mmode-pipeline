@@ -177,7 +177,7 @@ dirty-map-test: .pipeline/031-dirty-map-calibrated-all
 
 .pipeline/000-raw-data: \
 		$(LIB)/000-getdata.jl project.yml dada2ms.yml 000-getdata.yml
-	$(call launch-remote,2)
+	$(call launch-remote,8)
 
 .pipeline/001-raw-transposed-data: \
 		$(LIB)/001-transpose.jl project.yml 001-transpose-raw.yml \

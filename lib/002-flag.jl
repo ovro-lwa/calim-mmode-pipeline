@@ -87,6 +87,7 @@ function flag(project, config)
     try
         flags = Project.load(project, config.output_flags, "flags")
     catch
+        
         println("Applying a-priori flags")
         a_priori_flags!(flags, config, metadata)
         Project.save(project, config.output_flags*"-apriori", "flags", flags)
@@ -475,18 +476,26 @@ function threshold_flag(data, reduction, threshold; window_size=0, scale=10, ite
 
     for iteration = 1:iterations
         unflagged_x = x[.!flags]
-        unflagged_y = y[.!flags]
-        knots  = unflagged_x[2:scale:end-1]
-        spline = Spline1D(unflagged_x, unflagged_y, knots)
-        deviation = y .- spline.(x)
 
-        if window_size != 0
-            σ = windowed(reduction, deviation, window_size)
+        #Seems to be a problem with the knots being greater than unflagged x with the new array?? Attempting basic fix
+        if(length(unflagged_x) > 3)
+
+            unflagged_y = y[.!flags]
+            knots  = unflagged_x[2:scale:end-1]
+
+            spline = Spline1D(unflagged_x, unflagged_y, knots)
+            deviation = y .- spline.(x)
+
+            if window_size != 0
+                σ = windowed(reduction, deviation, window_size)
+            else
+                σ = reduction(deviation)
+            end
+            new_flags = deviation .> threshold .* σ
+            flags     = new_flags .| original_flags
         else
-            σ = reduction(deviation)
+            println(unflagged_x)
         end
-        new_flags = deviation .> threshold .* σ
-        flags     = new_flags .| original_flags
     end
 
     flags

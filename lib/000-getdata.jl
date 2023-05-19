@@ -26,7 +26,7 @@ function load(file, dada2ms)
     for (key, value) in dict["subbands"]
         subband = key
         if value == "all"
-            subbands[subband] = collect(1:109)
+            subbands[subband] = collect(1:192)
         elseif value isa Int
             subbands[subband] = [value]
         else
@@ -154,25 +154,46 @@ end
 
 function internal_getdata(dada2ms, config, index)
     subbands = sort(collect(keys(config.subbands)))
-    data, metadata = run_dada2ms(dada2ms, config, first(subbands), index)
+    data, metadata = get_data(dada2ms, config, first(subbands), index)
     for subband in subbands[2:end]
-        _data, _metadata = run_dada2ms(dada2ms, config, subband, index)
+        _data, _metadata = get_data(dada2ms, config, subband, index)
         data = cat(2, data, _data)
         TTCal.merge!(metadata, _metadata, axis=:frequency)
     end
     data, metadata
 end
 
-function run_dada2ms(dada2ms, config, subband, index)
+function get_data(dada2ms, config, subband, index)
     channels = config.subbands[subband]
     ms = DADA2MS.run(dada2ms, subband, index)
     raw_data = ms["DATA"] :: Array{Complex64, 3}
     metadata = TTCal.Metadata(ms)
     TTCal.slice!(metadata, channels, axis=:frequency)
     data = raw_data[config.keep, channels, :]
-    Tables.delete(ms)
     data, metadata
 end
+
+##function internal_getdata(dada2ms, config, index)
+##    subbands = sort(collect(keys(config.subbands)))
+##    data, metadata = run_dada2ms(dada2ms, config, first(subbands), index)
+##    for subband in subbands[2:end]
+##        _data, _metadata = run_dada2ms(dada2ms, config, subband, index)
+##        data = cat(2, data, _data)
+##        TTCal.merge!(metadata, _metadata, axis=:frequency)
+##    end
+##    data, metadata
+##end
+##
+##function run_dada2ms(dada2ms, config, subband, index)
+##    channels = config.subbands[subband]
+##    ms = DADA2MS.run(dada2ms, subband, index)
+##    raw_data = ms["DATA"] :: Array{Complex64, 3}
+##    metadata = TTCal.Metadata(ms)
+##    TTCal.slice!(metadata, channels, axis=:frequency)
+##    data = raw_data[config.keep, channels, :]
+##    Tables.delete(ms)
+##    data, metadata
+##end
 
 end
 

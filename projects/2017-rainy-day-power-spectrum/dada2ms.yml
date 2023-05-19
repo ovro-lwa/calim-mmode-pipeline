@@ -1,6 +1,6 @@
 utmzone: 11
 antfile: /home/xhall/mmode_old/ASTM/dada2ms_positions/ant_positions_NAD83_fiber_mapping1.txt
 polswap: swap-polarizations-rainy
-datadir: /data09/2017-02-17_24hour_run
-prefix:  2017-02-11-02:36:59
+datadir: /mnt/24-hour-run/69MHz
+prefix:  "202303"
 

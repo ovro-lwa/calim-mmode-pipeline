@@ -10,7 +10,7 @@ channels-at-a-time: 5
 maxiter: 200
 tolerance: 1e-5
 minuvw: 15.0
-refant: 34
+refant: 114 #Recomended
 order: 5
 delete-input: false
 

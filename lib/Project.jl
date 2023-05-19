@@ -25,7 +25,7 @@ function workspace(metadata::ProjectMetadata)
 end
 
 function temp()
-    path = "/data09/xhall_mmode_analysis/temp/14"
+    path = "/fast/xhall/temp"
     isdir(path) || mkpath(path)
     path
 end

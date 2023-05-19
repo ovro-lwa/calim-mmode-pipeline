@@ -22,7 +22,7 @@ function load(file)
 end
 
 function load!(config::Config, subband)
-    path = joinpath(config.datadir, @sprintf("%02d", subband))
+    path = config.datadir
     files = readdir(path)
     filter!(files) do file
         startswith(file, config.prefix)
@@ -38,14 +38,19 @@ end
 number(config::Config) = length(first(values(config.files)))
 
 function run(config::Config, dada::String)
-    ms = joinpath(Project.temp(), randstring(4)*"-"dotdada2dotms(basename(dada)))
-    Base.run(`dada2ms --utmzone $(config.utmzone) --antfile $(config.antfile) $dada $ms`)
-    if config.polswap != ""
-        cmd = joinpath(Project.bin(), config.polswap)
-        Base.run(`$(joinpath(Project.bin(), "swapped-polarization-fixes", config.polswap)) $ms`)
-    end
-    Tables.open(ascii(ms), write=true)
+    ms = joinpath(Project.temp(), dada)
+    Tables.open(ascii(ms), write=false)
 end
+
+# function run(config::Config, dada::String)
+#     ms = joinpath(Project.temp(), randstring(4)*"-"dotdada2dotms(basename(dada)))
+#     Base.run(`dada2ms --utmzone $(config.utmzone) --antfile $(config.antfile) $dada $ms`)
+#     if config.polswap != ""
+#         cmd = joinpath(Project.bin(), config.polswap)
+#         Base.run(`$(joinpath(Project.bin(), "swapped-polarization-fixes", config.polswap)) $ms`)
+#     end
+#     Tables.open(ascii(ms), write=true)
+# end
 
 run(config::Config, subband::Int, index::Int) = run(config, config.files[subband][index])
 
