@@ -45,8 +45,9 @@ function apply_the_calibration(project, config, calibration)
     input  = BPJSpec.load(joinpath(path, config.input))
     output = create(BPJSpec.SimpleBlockArray{Complex128, 3},
                     MultipleFiles(joinpath(path, config.output)), Ntime(metadata))
-
+    
     queue = collect(1:Ntime(metadata))
+    pool  = CachingPool(workers())
     lck = ReentrantLock()
     prg = Progress(length(queue))
     increment() = (lock(lck); next!(prg); unlock(lck))
@@ -54,7 +55,7 @@ function apply_the_calibration(project, config, calibration)
     @sync for worker in workers()
         @async while length(queue) > 0
             index = shift!(queue)
-            remotecall_wait(_apply_the_calibration, worker,
+            remotecall_wait(_apply_the_calibration, pool,
                             input, output, metadata, calibration, index)
             increment()
         end

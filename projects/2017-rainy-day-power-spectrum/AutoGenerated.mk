@@ -4,15 +4,15 @@
 		$(LIB)/030-getmmodes.jl project.yml generated-config-files/030-getmmodes-calibrated-all.yml \
 		.pipeline/001-calibrated-transposed-data \
 		.pipeline/002-flagged-calibrated-data \
-		.pipeline/100-transfer-matrix
-	$(call launch-remote,1)
+		#.pipeline/100-transfer-matrix
+	$(call launch-remote,4)
 
 .pipeline/030-m-modes-interpolated-calibrated-all: \
 		$(LIB)/030-getmmodes.jl project.yml generated-config-files/030-getmmodes-interpolated-calibrated-all.yml \
 		.pipeline/001-calibrated-transposed-data \
 		.pipeline/002-flagged-calibrated-data \
 		.pipeline/032-predicted-visibilities-calibrated \
-		.pipeline/100-transfer-matrix
+		#.pipeline/100-transfer-matrix
 	$(call launch-remote,1)
 
 .pipeline/033-transfer-flags-calibrated-all: \
@@ -24,20 +24,20 @@
 .pipeline/031-dirty-map-calibrated-all: \
 		$(LIB)/031-tikhonov.jl project.yml generated-config-files/031-tikhonov-calibrated-all.yml \
 		.pipeline/030-m-modes-calibrated-all \
-		.pipeline/100-transfer-matrix
-	$(call launch-remote,1)
+		#.pipeline/100-transfer-matrix
+	$(call launch-remote,4)
 
 .pipeline/031-dirty-channel-maps-calibrated-all: \
 		$(LIB)/031-tikhonov.jl project.yml generated-config-files/031-tikhonov-channels-calibrated-all.yml \
 		.pipeline/030-m-modes-calibrated-all \
-		.pipeline/100-transfer-matrix
+		#.pipeline/100-transfer-matrix
 	$(call launch-remote,1)
 
 .pipeline/031-dirty-map-interpolated-calibrated-all: \
 		$(LIB)/031-tikhonov.jl project.yml generated-config-files/031-tikhonov-interpolated-calibrated-all.yml \
 		.pipeline/033-transfer-flags-calibrated-all \
-		.pipeline/100-transfer-matrix
-	$(call launch-remote,1)
+		#.pipeline/100-transfer-matrix
+	$(call launch-remote,8)
 
 .pipeline/031-dirty-channel-maps-interpolated-calibrated-all: \
 		$(LIB)/031-tikhonov.jl project.yml generated-config-files/031-tikhonov-channels-interpolated-calibrated-all.yml \
@@ -336,7 +336,7 @@
 		$(LIB)/030-getmmodes.jl project.yml generated-config-files/030-getmmodes-calibrated-even.yml \
 		.pipeline/001-calibrated-transposed-data \
 		.pipeline/002-flagged-calibrated-data \
-		.pipeline/100-transfer-matrix
+		#.pipeline/100-transfer-matrix
 	$(call launch-remote,1)
 
 .pipeline/030-m-modes-interpolated-calibrated-even: \
@@ -344,37 +344,37 @@
 		.pipeline/001-calibrated-transposed-data \
 		.pipeline/002-flagged-calibrated-data \
 		.pipeline/032-predicted-visibilities-calibrated \
-		.pipeline/100-transfer-matrix
+		#.pipeline/100-transfer-matrix
 	$(call launch-remote,1)
 
 .pipeline/033-transfer-flags-calibrated-even: \
 		$(LIB)/033-transfer-flags.jl project.yml generated-config-files/033-transfer-flags-calibrated-even.yml \
 		.pipeline/030-m-modes-interpolated-calibrated-all \
-		.pipeline/030-m-modes-interpolated-calibrated-even
+		#.pipeline/030-m-modes-interpolated-calibrated-even
 	$(call launch-remote,1)
 
 .pipeline/031-dirty-map-calibrated-even: \
 		$(LIB)/031-tikhonov.jl project.yml generated-config-files/031-tikhonov-calibrated-even.yml \
 		.pipeline/030-m-modes-calibrated-even \
-		.pipeline/100-transfer-matrix
+		#.pipeline/100-transfer-matrix
 	$(call launch-remote,1)
 
 .pipeline/031-dirty-channel-maps-calibrated-even: \
 		$(LIB)/031-tikhonov.jl project.yml generated-config-files/031-tikhonov-channels-calibrated-even.yml \
 		.pipeline/030-m-modes-calibrated-even \
-		.pipeline/100-transfer-matrix
+		#.pipeline/100-transfer-matrix
 	$(call launch-remote,1)
 
 .pipeline/031-dirty-map-interpolated-calibrated-even: \
 		$(LIB)/031-tikhonov.jl project.yml generated-config-files/031-tikhonov-interpolated-calibrated-even.yml \
 		.pipeline/033-transfer-flags-calibrated-even \
-		.pipeline/100-transfer-matrix
+		#.pipeline/100-transfer-matrix
 	$(call launch-remote,1)
 
 .pipeline/031-dirty-channel-maps-interpolated-calibrated-even: \
 		$(LIB)/031-tikhonov.jl project.yml generated-config-files/031-tikhonov-channels-interpolated-calibrated-even.yml \
 		.pipeline/033-transfer-flags-calibrated-even \
-		.pipeline/100-transfer-matrix
+		#.pipeline/100-transfer-matrix
 	$(call launch-remote,1)
 
 .pipeline/101-averaged-m-modes-calibrated-even: \
@@ -1152,7 +1152,7 @@
 		$(LIB)/032-predict-visibilities.jl project.yml generated-config-files/032-predict-visibilities-calibrated.yml \
 		.pipeline/031-dirty-map-calibrated-all \
 		.pipeline/100-transfer-matrix
-	$(call launch-remote,1)
+	$(call launch-remote,2)
 
 .pipeline/033-transfer-flags-calibrated: \
 		$(LIB)/033-transfer-flags.jl project.yml generated-config-files/033-transfer-flags-predicted-calibrated.yml \
@@ -2050,15 +2050,15 @@
 		$(LIB)/030-getmmodes.jl project.yml generated-config-files/030-getmmodes-peeled-all.yml \
 		.pipeline/001-peeled-transposed-data \
 		.pipeline/002-flagged-peeled-data \
-		.pipeline/100-transfer-matrix
-	$(call launch-remote,1)
+		#.pipeline/100-transfer-matrix
+	$(call launch-remote,2)
 
 .pipeline/030-m-modes-interpolated-peeled-all: \
 		$(LIB)/030-getmmodes.jl project.yml generated-config-files/030-getmmodes-interpolated-peeled-all.yml \
 		.pipeline/001-peeled-transposed-data \
 		.pipeline/002-flagged-peeled-data \
 		.pipeline/032-predicted-visibilities-peeled \
-		.pipeline/100-transfer-matrix
+		#.pipeline/100-transfer-matrix
 	$(call launch-remote,1)
 
 .pipeline/033-transfer-flags-peeled-all: \
@@ -2070,8 +2070,8 @@
 .pipeline/031-dirty-map-peeled-all: \
 		$(LIB)/031-tikhonov.jl project.yml generated-config-files/031-tikhonov-peeled-all.yml \
 		.pipeline/030-m-modes-peeled-all \
-		.pipeline/100-transfer-matrix
-	$(call launch-remote,1)
+		#.pipeline/100-transfer-matrix
+	$(call launch-remote,16)
 
 .pipeline/031-dirty-channel-maps-peeled-all: \
 		$(LIB)/031-tikhonov.jl project.yml generated-config-files/031-tikhonov-channels-peeled-all.yml \

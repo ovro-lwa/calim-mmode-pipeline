@@ -6,7 +6,7 @@ metadata: metadata
 hierarchy: hierarchy
 interpolating-visibilities: 032-predicted-visibilities-peeled
 replacement-threshold: 5
-integrations-per-day: 6628
+integrations-per-day: 8591
 delete-input: false
 option: yy
 

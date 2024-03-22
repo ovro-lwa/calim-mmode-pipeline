@@ -6,6 +6,6 @@ output-directory: 031-dirty-channel-maps-compressed-recalibrated-all
 metadata: metadata
 transfer-matrix: 103-compressed-transfer-matrix-recalibrated-all
 regularization: 100
-nside: 512
+nside: 2048
 mfs: false
 

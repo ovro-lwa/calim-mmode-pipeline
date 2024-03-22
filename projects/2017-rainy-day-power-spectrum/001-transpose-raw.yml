@@ -1,4 +1,4 @@
-input: 000-raw-data
-output: 001-raw-transposed-data
+input: 003-calibrated-data
+output: 001-calibrated-transposed-data
 metadata: metadata
 

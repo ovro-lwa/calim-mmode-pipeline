@@ -5,6 +5,6 @@ output-map: 031-dirty-map-interpolated-calibrated-yy
 metadata: metadata
 transfer-matrix: 100-transfer-matrix-yy
 regularization: 100
-nside: 512
+nside: 2048
 mfs: true
 

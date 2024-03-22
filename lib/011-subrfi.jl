@@ -52,17 +52,17 @@ function subrfi(project, config)
             output_channel = RemoteChannel()
             remotecall(remote_worker_loop, worker, input_channel, output_channel,
                        input, output, project, config)
-            try
-                while length(queue) > 0
-                    integration = shift!(queue)
-                    put!(input_channel, integration)
-                    amp = take!(output_channel)
-                    amplitude[:, :, integration, :] = amp
-                    increment()
-                end
-            finally
-                put!(input_channel, 0)
+            while length(queue) > 0
+                #println(length(queue))
+                integration = shift!(queue)
+                #println("One")
+                put!(input_channel, integration)
+                #println("Two")
+                amp = take!(output_channel)
+                amplitude[:, :, integration, :] = amp
+                increment()
             end
+            put!(input_channel, 0)
         end
     end
 
@@ -75,27 +75,41 @@ function remote_worker_loop(input_channel, output_channel,
     metadata    = Project.load(project, config.metadata,    "metadata")
     coherencies = Project.load(project, config.coherencies, "coherencies")
     while true
+        #println("Start Loop")
         integration = take!(input_channel) :: Int
+        #println(integration)
         integration == 0 && break
-        put!(output_channel, _subrfi(input_visibilities, output_visibilities,
-                                     metadata, coherencies, integration))
+        #println("Middle Loop")
+        output = _subrfi(input_visibilities, output_visibilities, metadata, coherencies, integration)
+        #println("Middle Later Loop")
+        put!(output_channel, output)
+        #println("Restart loop")
     end
 end
 
 function _subrfi(input, output, metadata, coherencies, integration)
     data  = input[integration]
+    #println("Subrfi 1")
     model = [ttcal_to_array(coherency) for coherency in coherencies]
     short_baselines = identify_short_baselines(metadata, 15.0)
+    #println("Subrfi 2")
     subtracted_data, amplitude = _subrfi(data, model, short_baselines)
+    #println("Subrfi 3")
+    #println(integration)
+    #println(output)
+    #println(size(data) == size(subtracted_data))
     output[integration] = subtracted_data
+    #println("Subrfi 4")
     amplitude
 end
 
 function _subrfi(data, coherencies, short_baselines)
+    #println("Sub-subrfi 1")
     original_flags = data .== 0
     Npol, Nfreq, Nbase = size(data)
     amplitude  = zeros(Npol, Nfreq, length(coherencies))
-    subtracted = zeros(Complex128, Npol, Nfreq, Nbase)
+    subtracted = similar(data)
+    #println("Sub-subrfi 2")
     for freq = 1:Nfreq, pol = 1:Npol
         x = data[pol, freq, :]
         for (index, coherency) in enumerate(coherencies)
@@ -106,7 +120,9 @@ function _subrfi(data, coherencies, short_baselines)
         end
         subtracted[pol, freq, :] = x
     end
+    #println("Sub-subrfi 3")
     subtracted[original_flags] = 0
+    #println("Sub-subrfi 4")
     subtracted, amplitude
 end
 

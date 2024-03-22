@@ -6,6 +6,6 @@ output-directory: 031-dirty-channel-maps-filtered-peeled-night-none
 metadata: metadata
 transfer-matrix: 112-filtered-transfer-matrix-peeled-night-none
 regularization: 0.1
-nside: 512
+nside: 2048
 mfs: false
 

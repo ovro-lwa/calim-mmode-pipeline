@@ -63,6 +63,7 @@ function getmmodes(project, config)
                     metadata, hierarchy)
 
     queue = collect(1:length(input.frequencies))
+    pool  = CachingPool(workers())
     lck = ReentrantLock()
     prg = Progress(length(queue))
     increment() = (lock(lck); next!(prg); unlock(lck))
@@ -70,7 +71,7 @@ function getmmodes(project, config)
     @sync for worker in workers()
         @async while length(queue) > 0
             frequency = shift!(queue)
-            remotecall_wait(_getmmodes, worker, input, output,
+            remotecall_wait(_getmmodes, pool, input, output,
                             hierarchy, project, config, frequency)
             increment()
         end

@@ -196,7 +196,7 @@ function create_030_getmmodes_yml(makefile, process, sample)
                 output: 030-m-modes-$process-$sample
                 metadata: metadata
                 hierarchy: hierarchy
-                integrations-per-day: 6628
+                integrations-per-day: 8591
                 delete-input: false
                 option: $sample
                 """)
@@ -242,7 +242,7 @@ function create_030_getmmodes_interpolated_yml(makefile, process, sample)
                 $flagging_m_modes
                 replacement-threshold: 5
                 flagging-threshold: 3
-                integrations-per-day: 6628
+                integrations-per-day: 8591
                 delete-input: false
                 option: $sample
                 """)
@@ -284,7 +284,7 @@ function create_030_getmmodes_polarized_yml(makefile, process, sample)
                 hierarchy: hierarchy
                 interpolating-visibilities: 032-predicted-visibilities-$process
                 replacement-threshold: 5
-                integrations-per-day: 6628
+                integrations-per-day: 8591
                 delete-input: false
                 option: $sample
                 """)
@@ -311,7 +311,7 @@ function create_030_getmmodes_with_noise_yml(makefile, process, noise)
                 output: 030-m-modes-interpolated-$process-$noise
                 metadata: metadata
                 hierarchy: hierarchy
-                integrations-per-day: 6628
+                integrations-per-day: 8591
                 delete-input: false
                 """)
     end
@@ -342,7 +342,7 @@ function create_031_tikhonov_yml(makefile, process, sample)
                 metadata: metadata
                 transfer-matrix: 100-transfer-matrix$pol
                 regularization: 100
-                nside: 512
+                nside: 2048
                 mfs: true
                 """)
     end
@@ -374,7 +374,7 @@ function create_031_tikhonov_channels_yml(makefile, process, sample)
                 metadata: metadata
                 transfer-matrix: 100-transfer-matrix$pol
                 regularization: 100
-                nside: 512
+                nside: 2048
                 mfs: false
                 """)
     end
@@ -405,7 +405,7 @@ function create_031_tikhonov_interpolated_yml(makefile, process, sample)
                 metadata: metadata
                 transfer-matrix: 100-transfer-matrix$pol
                 regularization: 100
-                nside: 512
+                nside: 2048
                 mfs: true
                 """)
     end
@@ -437,7 +437,7 @@ function create_031_tikhonov_channels_interpolated_yml(makefile, process, sample
                 metadata: metadata
                 transfer-matrix: 100-transfer-matrix$pol
                 regularization: 100
-                nside: 512
+                nside: 2048
                 mfs: false
                 """)
     end
@@ -464,7 +464,7 @@ function create_031_tikhonov_compressed_yml(makefile, process, sample)
                 metadata: metadata
                 transfer-matrix: 103-compressed-transfer-matrix-$process-$sample
                 regularization: 100
-                nside: 512
+                nside: 2048
                 mfs: false
                 """)
     end
@@ -490,7 +490,7 @@ function create_031_tikhonov_filtered_yml(makefile, process, sample, filter)
                 metadata: metadata
                 transfer-matrix: 112-filtered-transfer-matrix-$process-$sample-$filter
                 regularization: 0.1
-                nside: 512
+                nside: 2048
                 mfs: false
                 """)
     end
@@ -518,7 +518,7 @@ function create_032_predict_visibilities_yml(makefile, process)
                 hierarchy: hierarchy
                 transfer-matrix: 100-transfer-matrix
                 spectral-index: -2.3
-                integrations-per-day: 6628
+                integrations-per-day: 8591
                 """)
     end
     replace_if_different(filename)

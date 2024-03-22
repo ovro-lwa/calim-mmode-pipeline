@@ -1,4 +1,4 @@
-output: 000-raw-data
+output: 003-calibrated-data
 output_metadata: metadata
 subbands:
     # Excluded due to failing calibration: 7, 11

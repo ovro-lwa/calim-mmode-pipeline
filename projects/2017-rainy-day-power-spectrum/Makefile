@@ -177,12 +177,12 @@ dirty-map-test: .pipeline/031-dirty-map-calibrated-all
 
 .pipeline/000-raw-data: \
 		$(LIB)/000-getdata.jl project.yml dada2ms.yml 000-getdata.yml
-	$(call launch-remote,8)
+	$(call launch-remote,4)
 
 .pipeline/001-raw-transposed-data: \
 		$(LIB)/001-transpose.jl project.yml 001-transpose-raw.yml \
 		.pipeline/000-raw-data
-	$(call launch-remote,1)
+	$(call launch-remote,4)
 
 .pipeline/002-flagged-raw-data: \
 		$(LIB)/002-flag.jl project.yml 002-flag-raw.yml \
@@ -193,12 +193,12 @@ dirty-map-test: .pipeline/031-dirty-map-calibrated-all
 .pipeline/003-calibrated-data: \
 		$(LIB)/003-calibrate.jl project.yml wsclean.yml 003-calibrate.yml \
 		.pipeline/002-flagged-raw-data
-	$(call launch-remote,1)
+	$(call launch-remote,16)
 
 .pipeline/001-calibrated-transposed-data: \
 		$(LIB)/001-transpose.jl project.yml 001-transpose-calibrated.yml \
-		.pipeline/003-calibrated-data
-	$(call launch-remote,1)
+		.pipeline/000-raw-data
+	$(call launch-remote,8)
 
 .pipeline/001-calibrated-transposed-data-xx: \
 		$(LIB)/001-transpose.jl project.yml 001-transpose-calibrated-xx.yml \
@@ -212,30 +212,30 @@ dirty-map-test: .pipeline/031-dirty-map-calibrated-all
 
 .pipeline/002-flagged-calibrated-data: \
 		$(LIB)/002-flag.jl project.yml 002-flag-calibrated.yml \
-		.pipeline/003-calibrated-data \
+		.pipeline/000-raw-data \
 		.pipeline/001-calibrated-transposed-data
 	$(launch)
 
 .pipeline/010-fitrfi: \
 		$(LIB)/010-fitrfi.jl project.yml wsclean.yml 010-fitrfi.yml \
 		.pipeline/002-flagged-calibrated-data
-	$(call launch-remote,1)
+	$(call launch-remote,24)
 
 .pipeline/011-subrfi: \
 		$(LIB)/011-subrfi.jl project.yml 011-subrfi.yml \
 		.pipeline/002-flagged-calibrated-data \
 		.pipeline/010-fitrfi
-	$(call launch-remote,6)
+	$(call launch-remote,24)
 
 .pipeline/020-peeled-data: \
 		$(LIB)/020-peel.jl project.yml 020-peel.yml \
 		.pipeline/011-subrfi
-	$(call launch-remote,6)
+	$(call launch-remote,24)
 
 .pipeline/001-peeled-transposed-data: \
 		$(LIB)/001-transpose.jl project.yml 001-transpose-peeled.yml \
 		.pipeline/020-peeled-data
-	$(call launch-remote,1)
+	$(call launch-remote,4)
 
 .pipeline/001-peeled-transposed-data-xx: \
 		$(LIB)/001-transpose.jl project.yml 001-transpose-peeled-xx.yml \
@@ -276,7 +276,7 @@ dirty-map-test: .pipeline/031-dirty-map-calibrated-all
 .pipeline/100-transfer-matrix: \
 		$(LIB)/100-transfer-matrix.jl project.yml 100-transfer-matrix.yml \
 		.pipeline/000-raw-data
-	$(call launch-remote,4)
+	$(call launch-remote,30)
 
 .pipeline/100-transfer-matrix-xx: \
 		$(LIB)/100-transfer-matrix.jl project.yml 100-transfer-matrix-xx.yml \

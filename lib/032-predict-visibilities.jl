@@ -50,7 +50,11 @@ function predict(project, config)
     mmax = transfermatrix.mmax
 
     alm    = create(MFBlockVector, MultipleFiles(joinpath(path, config.output_alm)),    mmax, ν, Δν)
+    #alm = BPJSpec.load(joinpath(path, config.output_alm))
+
     mmodes = create(MFBlockVector, MultipleFiles(joinpath(path, config.output_mmodes)), mmax, ν, Δν)
+    #mmodes = BPJSpec.load(joinpath(path, config.output_mmodes))
+
     visibilities = create(FBlockMatrix, MultipleFiles(joinpath(path, config.output_visibilities)),
                           ν, Δν)
 

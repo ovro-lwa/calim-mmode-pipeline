@@ -73,21 +73,28 @@ end
 
 function calibrate(project, wsclean, config)
     path = Project.workspace(project)
-    calibration, bandpass_coeff = solve_for_the_calibration(project, config)
-    #create_test_image(project, wsclean, config, calibration)
-    if config.output_calibration != ""
-        Project.save(project, config.output_calibration, "calibration", calibration)
+    try
+        calibration = Project.load(project, config.output_calibration, "calibration")
+        bandpass_coeff = Project.load(project, config.output_bandpass, "bandpass-parameters")
+    catch
+        calibration, bandpass_coeff = solve_for_the_calibration(project, config)
+        #create_test_image(project, wsclean, config, calibration)
+        if config.output_calibration != ""
+            Project.save(project, config.output_calibration, "calibration", calibration)
+        end
+        if config.output_bandpass != ""
+            Project.save(project, config.output_bandpass, "bandpass-parameters", bandpass_coeff)
+        end
     end
-    if config.output_bandpass != ""
-        Project.save(project, config.output_bandpass, "bandpass-parameters", bandpass_coeff)
-    end
+    calibration = Project.load(project, config.output_calibration, "calibration")
+    bandpass_coeff = Project.load(project, config.output_bandpass, "bandpass-parameters")
     if config.output != ""
         apply_the_calibration(project, config, calibration)
     end
 end
 
 function solve_for_the_calibration(project, config)
-    println("Solving for the calibration")
+    println(string("Solving for the calibration: ", config.maxiter))
     metadata = Project.load(project, config.metadata, "metadata")
     if config.channels_at_a_time > 0
         queue = collect(Iterators.partition(1:Nfreq(metadata), config.channels_at_a_time))

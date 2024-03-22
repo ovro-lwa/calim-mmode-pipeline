@@ -11,6 +11,7 @@ struct Config
     polswap :: String
     datadir :: String
     prefix  :: String
+    dates :: Vector{String}
     files :: Dict{Int, Vector{String}} # subband mapped to list of dada files
 end
 
@@ -18,21 +19,26 @@ function load(file)
     dict = YAML.load(open(file))
     files = Dict{Int, Vector{String}}()
     Config(dict["utmzone"], dict["antfile"], dict["polswap"],
-           dict["datadir"], dict["prefix"], files)
+           dict["datadir"], dict["prefix"], dict["dates"],  files)
 end
 
 function load!(config::Config, subband)
-    path = config.datadir
-    files = readdir(path)
-    filter!(files) do file
-        startswith(file, config.prefix)
+    files_all = []
+    for d in config.dates
+        path = joinpath(config.datadir, d)
+        files = readdir(path)
+        filter!(files) do file
+            (startswith(file, config.prefix) & endswith(file, ".ms"))
+        end
+        sort!(files)
+        for idx = 1:length(files)
+            files[idx] = joinpath(path, files[idx])
+        end
+        files_all = [files_all; files]
+        println(length(files))
     end
-    sort!(files)
-    for idx = 1:length(files)
-        files[idx] = joinpath(path, files[idx])
-    end
-    config.files[subband] = files
-    files
+    config.files[subband] = files_all
+    files_all
 end
 
 number(config::Config) = length(first(values(config.files)))

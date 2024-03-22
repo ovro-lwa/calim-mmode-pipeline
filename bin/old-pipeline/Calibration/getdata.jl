@@ -52,7 +52,7 @@ function getdata_do_the_work(dataset, dada, channels)
     local time, output
     try
         ms, path = dada2ms(dada, dataset)
-        data = ms["DATA"] :: Array{Complex64, 3}
+        data = ms["DATA"] :: Array{Complex128, 3}
         time = ms["TIME", 1] :: Float64
         # discard the xy and yx correlations because we don't really have the information to
         # calibrate them (no polarization calibration)

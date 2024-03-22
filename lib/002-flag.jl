@@ -79,6 +79,7 @@ end
 
 function flag(project, config)
     path     = Project.workspace(project)
+    println(path)
     metadata = Project.load(project, config.metadata, "metadata")
 
     
@@ -98,8 +99,9 @@ function flag(project, config)
         end
 
         use_transposed_visibilities = (config.smooth_sawtooth
-                                    || config.visibility_amplitude_threshold > 0
-                                    || config.channel_baseline_constant_offset_threshold > 0)
+                                   || config.visibility_amplitude_threshold > 0
+                                   || config.channel_baseline_constant_offset_threshold > 0)
+        # use_transposed_visibilities = false
         if use_transposed_visibilities
             println("Working feverishly on the transposed visibilities")
             transposed_visibilities = BPJSpec.load(joinpath(path, config.input_transposed))
@@ -494,7 +496,9 @@ function threshold_flag(data, reduction, threshold; window_size=0, scale=10, ite
             new_flags = deviation .> threshold .* σ
             flags     = new_flags .| original_flags
         else
-            println(unflagged_x)
+            new_flags = flags .== flags
+            flags = new_flags
+            println("Flag Everything") #If there isn't enough data to fit a spline just flag the whole baseline.
         end
     end
 

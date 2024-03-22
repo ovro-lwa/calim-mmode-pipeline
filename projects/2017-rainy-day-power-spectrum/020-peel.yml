@@ -6,11 +6,11 @@ sky-model: peeling-sky-model.json
 strategy:
     Cyg A:
         category: bright
-        minimum-elevation: 10
+        minimum-elevation: 20
         minimum-flux: 1000
     Cas A:
         category: bright
-        minimum-elevation: 10
+        minimum-elevation: 20
         minimum-flux: 1000
     Vir A:
         category: faint
@@ -38,6 +38,6 @@ strategy:
         minimum-flux: 500
     Sun:
         category: bright
-        minimum-elevation: 10
+        minimum-elevation: 20
         minimum-flux: 3000
 

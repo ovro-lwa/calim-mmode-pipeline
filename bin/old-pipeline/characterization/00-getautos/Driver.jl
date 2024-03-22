@@ -55,7 +55,7 @@ function _getautos(name, dada)
     local autos, metadata
     try
         ms = dada2ms(dada, name)
-        raw_data = ms["DATA"] :: Array{Complex64, 3}
+        raw_data = ms["DATA"] :: Array{Complex128, 3}
         metadata = TTCal.Metadata(ms)
         autos = zeros(2, Nfreq(metadata), Nant(metadata))
 

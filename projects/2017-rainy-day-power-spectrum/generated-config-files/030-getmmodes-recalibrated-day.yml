@@ -4,7 +4,7 @@ input-flags: 002-peeled-data-flags
 output: 030-m-modes-recalibrated-day
 metadata: metadata
 hierarchy: hierarchy
-integrations-per-day: 6628
+integrations-per-day: 8591
 delete-input: false
 option: day
 

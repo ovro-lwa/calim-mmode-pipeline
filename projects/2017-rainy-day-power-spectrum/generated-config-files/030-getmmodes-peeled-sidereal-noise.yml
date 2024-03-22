@@ -3,6 +3,6 @@ input: 032-predicted-visibilities-peeled-sidereal-noise
 output: 030-m-modes-interpolated-peeled-sidereal-noise
 metadata: metadata
 hierarchy: hierarchy
-integrations-per-day: 6628
+integrations-per-day: 8591
 delete-input: false
 

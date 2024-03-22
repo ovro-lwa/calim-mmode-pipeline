@@ -71,7 +71,7 @@ function getdata(project, dada2ms, config)
 
     path = Project.workspace(project)
     Project.set_stripe_count(project, config.output, 1)
-    output = create(BPJSpec.SimpleBlockArray{Complex64, 3},
+    output = create(BPJSpec.SimpleBlockArray{Complex128, 3},
                     MultipleFiles(joinpath(path, config.output)), length(queue))
     metadata = Vector{TTCal.Metadata}(length(queue))
 
@@ -139,7 +139,7 @@ function getdata_accumulate(project, dada2ms, config)
 end
 
 function getdata_accumulate_remote_processing_loop(input, output, dada2ms, config, size)
-    data = zeros(Complex64, size)
+    data = zeros(Complex128, size)
     while true
         idx = take!(input)
         if idx == 0
@@ -166,7 +166,7 @@ end
 function get_data(dada2ms, config, subband, index)
     channels = config.subbands[subband]
     ms = DADA2MS.run(dada2ms, subband, index)
-    raw_data = ms["DATA"] :: Array{Complex64, 3}
+    raw_data = convert(Array{Complex{Float64},3},ms["CORRECTED_DATA"] :: Array{Complex64, 3})
     metadata = TTCal.Metadata(ms)
     TTCal.slice!(metadata, channels, axis=:frequency)
     data = raw_data[config.keep, channels, :]
@@ -187,7 +187,7 @@ end
 ##function run_dada2ms(dada2ms, config, subband, index)
 ##    channels = config.subbands[subband]
 ##    ms = DADA2MS.run(dada2ms, subband, index)
-##    raw_data = ms["DATA"] :: Array{Complex64, 3}
+##    raw_data = ms["DATA"] :: Array{Complex128, 3}
 ##    metadata = TTCal.Metadata(ms)
 ##    TTCal.slice!(metadata, channels, axis=:frequency)
 ##    data = raw_data[config.keep, channels, :]

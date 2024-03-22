@@ -19,13 +19,13 @@ function load(file)
 end
 
 function workspace(metadata::ProjectMetadata)
-    path = joinpath("/data09/xhall_mmode_analysis/workspace/14_xx/", metadata.name)
+    path = joinpath("/lustre/xhall/workspace/73MHz_solstice", metadata.name)
     isdir(path) || mkpath(path)
     path
 end
 
 function temp()
-    path = "/fast/xhall/temp"
+    path = "/lustre/xhall/workspace/73MHz_solstice/temp"
     isdir(path) || mkpath(path)
     path
 end
@@ -41,7 +41,7 @@ end
 function set_stripe_count(project, directory, N)
     path = joinpath(workspace(project), directory)
     isdir(path) || mkpath(path)
-    #run(`lfs setstripe -c $N $path`)
+    run(`lfs setstripe -c $N $path`)
 end
 
 function load(project, filename, objectname)

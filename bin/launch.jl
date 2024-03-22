@@ -34,9 +34,9 @@ const args = parse_commandline()
 const path = abspath(normpath(args["driver"]))
 include(path)
 
-name(astm) = @sprintf("lwacalim%02d", astm)
+name(astm) = @sprintf("xhall@lwacalim%02d", astm)
 function time_worker_spawn(astm, number, topology)
-    @elapsed addprocs([(name(astm), number)])
+    @elapsed addprocs(fill(name(astm), number))#, tunnel = true, topology = topology
 end
 
 function time_load_code(worker, path)
@@ -56,15 +56,15 @@ function main(args)
     end
 
     if args["remote-workers"] !== nothing
-        info("Launching local workers")
-        time_worker_spawn(9, args["remote-workers"], topology)
-        ##info("Launching remote workers")
-        ##number = args["remote-workers"]
-        ##for astm = 4:13
-        ##    astm in args["exclude"] && continue
-        ##    time = time_worker_spawn(astm, number, topology)
-        ##    println(" ", rpad(name(astm)*" ", 7, "─"), lpad(@sprintf(" %.1f s", time), 8, "─"))
-        ##end
+        ##info("Launching local workers")
+        ##time_worker_spawn(9, args["remote-workers"], topology)
+        info("Launching remote workers")
+        number = args["remote-workers"]
+        for astm = 1:10
+            astm in args["exclude"] && continue
+            time = time_worker_spawn(astm, number, topology)
+            println(" ", rpad(name(astm)*" ", 7, "─"), lpad(@sprintf(" %.1f s", time), 8, "─"))
+        end
     end
 
     if args["local-workers"] !== nothing || args["remote-workers"] !== nothing

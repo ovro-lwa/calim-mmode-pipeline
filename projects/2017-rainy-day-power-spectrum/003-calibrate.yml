@@ -5,12 +5,12 @@ output-bandpass: 003-bandpass-parameters
 metadata: metadata
 sky-model: calibration-sky-model.json
 test-image: 003-calibration-image
-integrations: 1600:1800
+integrations: 1500:1900
 channels-at-a-time: 5
-maxiter: 200
+maxiter: 1000
 tolerance: 1e-5
 minuvw: 15.0
-refant: 114 #Recomended
+refant: 202 #Recomended
 order: 5
 delete-input: false
 

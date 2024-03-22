@@ -1,6 +1,8 @@
 utmzone: 11
 antfile: /home/xhall/mmode_old/ASTM/dada2ms_positions/ant_positions_NAD83_fiber_mapping1.txt
 polswap: swap-polarizations-rainy
-datadir: /mnt/24-hour-run/69MHz
-prefix:  "202303"
+datadir: /lustre/xhall/2023-12-21_solstice_data/73MHz
+prefix:  "2023"
+dates: 
+  - "2023-12-21"
 
