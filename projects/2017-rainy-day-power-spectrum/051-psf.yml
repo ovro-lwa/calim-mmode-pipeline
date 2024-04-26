@@ -1,0 +1,5 @@
+input: 031-dirty-alm-peeled-all
+input-alm: 031-dirty-alm-peeled-all
+input-observation-matrix: 050-observation-matrix
+output: 051-psf-properties
+metadata: metadata

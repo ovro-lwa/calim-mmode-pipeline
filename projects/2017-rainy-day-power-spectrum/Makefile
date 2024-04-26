@@ -265,6 +265,26 @@ dirty-map-test: .pipeline/031-dirty-map-calibrated-all
 		.pipeline/040-recalibrate
 	$(call launch-remote,1)
 
+.pipeline/050-observation-matrix: \
+		$(LIB)/050-observation-matrix.jl project.yml 050-observation-matrix.yml \
+		.pipeline/031-dirty-map-peeled-all
+	$(call launch-remote,4)
+
+.pipeline/051-psf: \
+		$(LIB)/051-psf.jl project.yml 051-psf.yml \
+		.pipeline/050-observation-matrix
+	$(call launch-remote,6)
+
+.pipeline/052-clean: \
+		$(LIB)/052-clean.jl project.yml 052-clean.yml \
+		.pipeline/051-psf
+	$(call launch-remote,4)
+
+.pipeline/053-restore: \
+		$(LIB)/053-restore.jl project.yml 053-restore.yml \
+		.pipeline/051-psf
+	$(launch)
+
 .pipeline/001-recalibrated-transposed-data: \
 		$(LIB)/001-transpose.jl project.yml 001-transpose-recalibrated.yml \
 		.pipeline/041-recalibrate-apply

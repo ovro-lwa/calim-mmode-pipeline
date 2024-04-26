@@ -34,7 +34,7 @@ const args = parse_commandline()
 const path = abspath(normpath(args["driver"]))
 include(path)
 
-name(astm) = @sprintf("xhall@lwacalim%02d", astm)
+name(astm) = @sprintf("xhall@10.41.0.%02d", 75 + astm)
 function time_worker_spawn(astm, number, topology)
     @elapsed addprocs(fill(name(astm), number))#, tunnel = true, topology = topology
 end
@@ -60,7 +60,7 @@ function main(args)
         ##time_worker_spawn(9, args["remote-workers"], topology)
         info("Launching remote workers")
         number = args["remote-workers"]
-        for astm = 1:10
+        for astm = [1, 2, 3, 5, 6, 7, 8, 9]
             astm in args["exclude"] && continue
             time = time_worker_spawn(astm, number, topology)
             println(" ", rpad(name(astm)*" ", 7, "─"), lpad(@sprintf(" %.1f s", time), 8, "─"))
@@ -88,4 +88,3 @@ function main(args)
     Driver.go(args["args"]...)
 end
 main(args)
-

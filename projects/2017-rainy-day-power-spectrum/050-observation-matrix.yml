@@ -1,0 +1,6 @@
+input: 030-m-modes-peeled-all
+output: 050-observation-matrix
+hierarchy: hierarchy
+transfer-matrix: 100-transfer-matrix
+metadata: metadata
+

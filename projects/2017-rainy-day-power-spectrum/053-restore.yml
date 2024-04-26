@@ -1,0 +1,4 @@
+input: 031-dirty-alm-peeled-all
+input-psf: 051-psf-properties
+output: 053-clean-map
+metadata: metadata

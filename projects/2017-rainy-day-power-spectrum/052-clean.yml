@@ -1,0 +1,5 @@
+input: 031-dirty-alm-peeled-all
+input-psf: 051-psf-properties
+input-observation-matrix: 050-observation-matrix
+output: 052-clean-map
+transfer-matrix: 100-transfer-matrix
