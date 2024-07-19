@@ -24,7 +24,7 @@ module Worker
         for m in list_of_m
             if !haskey(observation_matrix_blocks, m)
                 observation_matrix_blocks[m]     = observation_matrix_blocks_bpj[m]
-                cholesky_decomposition_blocks[m] = cholesky_decomposition_blocks_bpj[m]
+                cholesky_decomposition_blocks[m] = UpperTriangular(cholesky_decomposition_blocks_bpj[m])
             end
         end
     end

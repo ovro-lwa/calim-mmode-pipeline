@@ -50,7 +50,7 @@ function restore(project, config)
     end
 
     local residual_alm, degraded_alm, components
-    jldopen(joinpath(path, "052-clean", "state-00001.jld2"), "r") do file
+    jldopen(joinpath(path, "052-clean", "state-04096.jld2"), "r") do file
         residual_alm = file["residual_alm"]
         degraded_alm = file["degraded_alm"]
         components   = file["components"]

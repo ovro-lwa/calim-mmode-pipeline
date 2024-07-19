@@ -30,6 +30,16 @@ end
 
 function go(project_file, config_file)
     println(config_file)
+    julia> eigvals(A)
+    2-element Array{Complex{Float64},1}:
+     -1.0 - 5.0im
+     -1.0 + 5.0im
+    
+    julia> eigvecs(A)
+    2×2 Array{Complex{Float64},2}:
+      0.945905-0.0im        0.945905+0.0im
+     -0.166924+0.278207im  -0.166924-0.278207im
+    
     project = Project.load(project_file)
     config  = load(config_file)
     observation_matrix(project, config)

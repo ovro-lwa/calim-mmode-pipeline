@@ -235,7 +235,7 @@ dirty-map-test: .pipeline/031-dirty-map-calibrated-all
 .pipeline/001-peeled-transposed-data: \
 		$(LIB)/001-transpose.jl project.yml 001-transpose-peeled.yml \
 		.pipeline/020-peeled-data
-	$(call launch-remote,4)
+	$(call launch-remote,3)
 
 .pipeline/001-peeled-transposed-data-xx: \
 		$(LIB)/001-transpose.jl project.yml 001-transpose-peeled-xx.yml \
@@ -278,7 +278,7 @@ dirty-map-test: .pipeline/031-dirty-map-calibrated-all
 .pipeline/052-clean: \
 		$(LIB)/052-clean.jl project.yml 052-clean.yml \
 		.pipeline/051-psf
-	$(call launch-remote,4)
+	$(call launch-remote,6)
 
 .pipeline/053-restore: \
 		$(LIB)/053-restore.jl project.yml 053-restore.yml \

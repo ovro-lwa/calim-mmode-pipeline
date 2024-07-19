@@ -97,7 +97,7 @@ function clean(project, config)
     println("* Removing the diffuse emission")
     @time gaussian_kernel = gaussian_alm(1, alm.lmax, alm.mmax)
     @time degraded_alm = convolve(alm, gaussian_kernel)
-    @time degraded_map = alm2map(degraded_alm, 1024)
+    @time degraded_map = alm2map(degraded_alm, 2048)
     @time residual_alm = alm - degraded_alm
     @time residual_map = alm2map(residual_alm, nside)
     writehealpix(joinpath(clean_path, "diffuse-component.fits"),  degraded_map, replace=true)
@@ -111,8 +111,14 @@ function clean(project, config)
                   residual_alm, residual_map, degraded_alm,
                   components, mask, responsibilities, local_workers(), gaussian_kernel)
 
-    major_iterations = 4
-    minor_iterations = 256
+    #file = jldopen(joinpath(path, "052-clean", "state-01024.jld2"), "r")
+    #state = State(lmax, mmax, nside, x, y, z,
+    #              file["residual_alm"], alm2map(file["residual_alm"], nside), file["degraded_alm"],
+    #              file["components"], file["mask"], responsibilities, local_workers(), gaussian_kernel)
+    #close(file)
+    
+    major_iterations = 4096
+    minor_iterations = 1024
     _clean(state, psf, major_iterations, minor_iterations, clean_path)
 end
 
@@ -124,7 +130,7 @@ function _clean(state, psf, major_iterations, minor_iterations, path)
         println("stddev = ", std(state.residual_map[state.mask]))
         println("mean = ", mean(state.residual_map[state.mask]))
         pixels = major_iteration!(state, psf, minor_iterations)
-        mod(iter, 1) == 0 && in_progress_output(state, path, iter, pixels)
+        mod(iter, 64) == 0 && in_progress_output(state, path, iter, pixels)
     end
 end
 
@@ -152,8 +158,12 @@ function major_iteration!(state, psf, minor_iterations)
     @time pixels = select_pixels(state, minor_iterations)
     println("* computing spherical harmonics")
     @time alm = compute_spherical_harmonics(state, psf, pixels)
+    model_map = alm2map(alm, 2048)
+    #writehealpix("/lustre/xhall/workspace/73MHz_solstice/2017-rainy-day-power-spectrum/052-clean/model_map.fits", model_map, replace=true)
     println("* corrupting spherical harmonics")
     @time alm = corrupt_spherical_harmonics(state, alm)
+    corrputed_map = alm2map(alm, 2048)
+    #writehealpix("/lustre/xhall/workspace/73MHz_solstice/2017-rainy-day-power-spectrum/052-clean/corrputed_map.fits", corrputed_map, replace=true)
     println("* removing clean components")
     @time remove_clean_components!(state, alm)
     return pixels
@@ -179,6 +189,9 @@ function select_pixels(state, minor_iterations)
 end
 
 function select_pixels(residual_map, mask, x, y, z, minor_iterations)
+    #println("Write Map Check")
+    #writehealpix(joinpath("/lustre/xhall/workspace/73MHz_solstice/2017-rainy-day-power-spectrum/052-clean", "starting-residuals-select-pixels.fits"), residual_map, replace=true)
+    
     N = length(residual_map)
     values = abs2.(residual_map[mask])
     order  = sortperm(values)

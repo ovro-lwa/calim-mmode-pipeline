@@ -149,6 +149,8 @@ function select_pixels(state, minor_iterations)
 end
 
 function select_pixels(residual_map, mask, x, y, z, minor_iterations)
+    println("Write Map Check")
+    writehealpix(joinpath("/lustre/xhall/workspace/73MHz_solstice/2017-rainy-day-power-spectrum/052-clean", "starting-residuals-select-pixels.fits"), residual_map, replace=true)
     N = length(residual_map)
     values = abs2.(residual_map[mask])
     order  = sortperm(values)
